@@ -1,42 +1,28 @@
 import { create } from 'zustand';
 
-type Theme = 'light' | 'dark';
+export type CursorVariant = 'default' | 'hover' | 'view';
 
-type UiState = {
-  theme: Theme;
-  setTheme: (t: Theme) => void;
-  toggleTheme: () => void;
-};
+interface UIState {
+  splashDone: boolean;
+  setSplashDone: (done: boolean) => void;
 
-const THEME_KEY = 'theme';
+  cursorVariant: CursorVariant;
+  setCursorVariant: (variant: CursorVariant) => void;
 
-function applyThemeToDom(t: Theme) {
-  const root = document.documentElement;
-  root.classList.toggle('dark', t === 'dark');
+  activeSection: string;
+  setActiveSection: (section: string) => void;
 }
 
-function getInitialTheme(): Theme {
-  const saved = localStorage.getItem(THEME_KEY);
-  if (saved === 'light' || saved === 'dark') return saved;
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
+export const useUIStore = create<UIState>((set) => ({
+  splashDone: sessionStorage.getItem('splashDone') === 'true',
+  setSplashDone: (done) => {
+    if (done) sessionStorage.setItem('splashDone', 'true');
+    set({ splashDone: done });
+  },
 
-export const useUiStore = create<UiState>((set, get) => ({
-  theme: 'light',
-  setTheme: (t) => {
-    localStorage.setItem(THEME_KEY, t);
-    applyThemeToDom(t);
-    set({ theme: t });
-  },
-  toggleTheme: () => {
-    const next: Theme = get().theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem(THEME_KEY, next);
-    applyThemeToDom(next);
-    set({ theme: next });
-  },
+  cursorVariant: 'default',
+  setCursorVariant: (variant) => set({ cursorVariant: variant }),
+
+  activeSection: 'home',
+  setActiveSection: (section) => set({ activeSection: section }),
 }));
-
-export function initThemeFromStorage() {
-  const t = getInitialTheme();
-  useUiStore.getState().setTheme(t);
-}
