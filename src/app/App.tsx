@@ -1,28 +1,44 @@
-import { Navbar } from '../components/layouts/Navbar';
-import { Hero } from '../features/landing/Hero';
-import { About } from '../features/about/About';
-import { Skills } from '../features/skills/Skills';
-import { Experience } from '../features/experience/Experience';
-import { Projects } from '../features/projects/Projects';
-import { Contact } from '../features/contact/Contact';
-// import { Highlights } from '../features/landing/Highlights';
-import { AuroraBackground } from '../components/layouts/AuroraBackground';
+import { lazy, Suspense } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { SmoothScroll } from '../components/layout/SmoothScroll';
+import { CustomCursor } from '../components/layout/CustomCursor';
+import { SplashScreen } from '../components/layout/SplashScreen';
+import { ScrollToTop } from '../components/layout/ScrollToTop';
+import { useUIStore } from './store/ui.store';
+
+const Home = lazy(() => import('../pages/Home'));
+const ProjectDetail = lazy(() => import('../pages/ProjectDetail'));
+
+function Loader() {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-[rgb(var(--bg))]">
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-[rgb(var(--accent))] border-t-transparent" />
+    </div>
+  );
+}
 
 export default function App() {
+  const splashDone = useUIStore((s) => s.splashDone);
+
   return (
-    <div className="overflow-hidden">
-      <AuroraBackground />
-      <Navbar />
-      <main className=" pt-[65px] md:pt-[72px]">
-        <Hero />
-        <About />
-        {/* <Highlights /> */}
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact />
-      </main>
-      <footer className="py-10 text-center text-sm text-slate-500 dark:text-slate-400">Copyright © {new Date().getFullYear()} Wildan. All rights reserved.</footer>
-    </div>
+    <HashRouter>
+      <ScrollToTop />
+      <CustomCursor />
+      {!splashDone ? (
+        <SplashScreen />
+      ) : (
+        <SmoothScroll>
+          <Suspense fallback={<Loader />}>
+            <AnimatePresence mode="wait">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/project/:slug" element={<ProjectDetail />} />
+              </Routes>
+            </AnimatePresence>
+          </Suspense>
+        </SmoothScroll>
+      )}
+    </HashRouter>
   );
 }
