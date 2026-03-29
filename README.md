@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# Wildan's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive personal portfolio built with React, TypeScript, and Vite. This project highlights selected work, experience, tech stack, and contact information in a motion-heavy interface with custom UI interactions and dedicated project detail pages.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This portfolio is designed as a modern single-page experience with:
 
-## React Compiler
+- animated hero section
+- smooth scrolling and scroll-triggered reveals
+- interactive project cards and detail pages
+- custom cursor and magnetic button interactions
+- optional 3D visuals for capable devices
+- static-friendly routing for portfolio deployment
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The content is mostly data-driven through files inside `src/data`, which makes it easier to update projects, experience, and tech stack without rewriting section components.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `Hero` section with animated typography, CTA buttons, and optional 3D scene
+- `About`, `Tech Stack`, `Experience`, `Projects`, `Playground`, and `Contact` sections
+- project detail page with gallery, feature list, tech stack tags, and previous/next navigation
+- splash screen and custom cursor for stronger first impression
+- smooth scrolling with Lenis and motion effects powered by GSAP + Framer Motion
+- lazy-loaded pages and scenes to keep the initial experience lighter
+- static asset organization under `public/` for screenshots, images, and resume files
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Core
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- React 19
+- TypeScript
+- Vite
+- React Router
+
+### UI and Animation
+
+- Tailwind CSS v4
+- Framer Motion
+- GSAP
+- Lucide React
+- Lenis
+- Zustand
+
+### 3D and Media
+
+- Three.js
+- React Three Fiber
+- Drei
+- vite-imagetools
+
+### Tooling
+
+- ESLint
+- rollup-plugin-visualizer
+- vite-plugin-compression
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ recommended
+- npm
+
+### Installation
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run in Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+### Analyze Bundle
+
+```bash
+npm run analyze
+```
+
+## Available Scripts
+
+- `npm run dev`: start local Vite development server
+- `npm run build`: run TypeScript build and generate production bundle
+- `npm run preview`: preview the production build locally
+- `npm run lint`: run ESLint across the project
+- `npm run analyze`: inspect bundle output
+
+
+## Performance Notes
+
+- pages and 3D scenes are lazy-loaded
+- build output is compressed with gzip and Brotli
+- manual chunk splitting is configured for major libraries
+- images can be optimized through `vite-imagetools`
+
