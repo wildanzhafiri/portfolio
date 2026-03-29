@@ -226,7 +226,8 @@ function TypingText({
   active: boolean;
   progress: number;
 }) {
-  const visibleChars = active ? Math.floor(progress * text.length * 1.2) : text.length;
+  const visibleChars = active ? Math.min(text.length, Math.floor(progress * text.length * 1.2)) : text.length;
+  const visibleText = text.slice(0, visibleChars);
 
   return (
     <p
@@ -236,17 +237,7 @@ function TypingText({
         color: 'rgb(var(--fg-muted))',
       }}
     >
-      {text.split('').map((char, i) => (
-        <span
-          key={i}
-          style={{
-            opacity: i < visibleChars ? 1 : 0,
-            transition: 'opacity 0.05s',
-          }}
-        >
-          {char}
-        </span>
-      ))}
+      <span>{visibleText}</span>
 
       {active && (
         <span
