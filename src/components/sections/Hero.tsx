@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { MagneticLink } from '../ui/MagneticButton';
 import { useMousePosition } from '../../hooks/useMousePosition';
 import { useDeviceCapability } from '../../hooks/useDeviceCapability';
-import { ChevronDown, GlobeIcon } from 'lucide-react';
+import { ArrowRight, ChevronDown, GlobeIcon, MessageCircle } from 'lucide-react';
 
 const HeroScene = lazy(() => import('../three/HeroScene'));
 
@@ -99,10 +99,10 @@ export function Hero() {
         </div>
 
         <div ref={ctaRef} className="mt-10 flex flex-wrap items-center justify-center gap-4 opacity-0">
-          <MagneticLink href="#projects" variant="primary">
+          <MagneticLink href="#projects" variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
             See My Work
           </MagneticLink>
-          <MagneticLink href="#contact" variant="outline">
+          <MagneticLink href="#contact" variant="outline" icon={<MessageCircle className="w-4 h-4" />}>
             Get In Touch
           </MagneticLink>
         </div>

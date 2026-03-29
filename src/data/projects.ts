@@ -40,7 +40,7 @@ export const projects: Project[] = [
       `${BASE}projects/bulkyhub/bulkyhub-detailassignment.png`,
       `${BASE}projects/bulkyhub/bulkyhub-truckmanagement.png`,
     ],
-    techStack: ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'REST API'],
+    techStack: ['React', 'TypeScript', 'Tailwind', 'REST API'],
     features: [
       'Multi-step pickup request flow',
       'Slot-based scheduling per RW capacity',
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     role: 'Front-end Developer',
     thumbnail: `${BASE}projects/em/em1.png`,
     images: Array.from({ length: 11 }, (_, i) => `${BASE}projects/em/em${i + 1}.png`),
-    techStack: ['Next.js', 'TypeScript', 'Tailwind', 'GraphQL', 'Framer Motion'],
+    techStack: ['Next.js', 'TypeScript', 'Tailwind', 'GraphQL'],
     features: [
       'Landing page & core navigation',
       'Work program pages',
@@ -105,7 +105,7 @@ export const projects: Project[] = [
       ...Array.from({ length: 7 }, (_, i) => `${BASE}projects/kenalbatik/kenakbatik${i + 1}.png`),
       ...Array.from({ length: 4 }, (_, i) => `${BASE}projects/kenalbatik/kenalbatik${i + 8}.png`),
     ],
-    techStack: ['React', 'InertiaJS', 'Laravel', 'Tailwind', 'Framer Motion'],
+    techStack: ['React', 'InertiaJS', 'Laravel', 'Tailwind'],
     features: [
       'Batik motif catalog',
       'Gamified quiz module',

@@ -137,6 +137,7 @@ code, pre, .font-mono {
   100% { transform: translateX(120%); }
 }
 
+
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.4; }
   50%      { opacity: 0.8; }

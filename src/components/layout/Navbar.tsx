@@ -187,15 +187,18 @@ export function Navbar() {
                 </motion.a>
               ))}
 
-              <a
+              <motion.a
                 href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2025.pdf`}
                 download
-                className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm border border-[rgba(var(--accent),0.3)] text-[rgb(var(--accent))]"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                className="mt-6 group inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm border border-[rgba(var(--accent),0.3)] text-[rgb(var(--accent))] hover:bg-[rgba(var(--accent),0.08)] hover:border-[rgba(var(--accent),0.5)] hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] transition-all duration-200"
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                 Download CV
-              </a>
+              </motion.a>
             </motion.nav>
           </motion.div>
         )}

@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticLink } from '../ui/MagneticButton';
-import { Github, Linkedin, Instagram, MessageCircle, Copy, Check } from 'lucide-react';
+import { Github, Linkedin, Instagram, MessageCircle, Copy, Check, Send } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -105,7 +105,7 @@ export function Contact() {
         </div>
 
         <div className="contact-reveal mt-12 opacity-0">
-          <MagneticLink href={`https://wa.me/${WHATSAPP}`} variant="primary">
+          <MagneticLink href={`https://wa.me/${WHATSAPP}`} variant="primary" icon={<Send className="w-4 h-4" />}>
             Say Hello
           </MagneticLink>
         </div>

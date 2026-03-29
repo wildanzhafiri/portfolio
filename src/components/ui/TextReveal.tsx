@@ -63,5 +63,5 @@ export function TextReveal({
     };
   }, [children, delay, scrub]);
 
-  return <Tag ref={containerRef as React.RefObject<HTMLElement>} className={className}>{children}</Tag>;
+  return <Tag ref={containerRef as React.RefObject<never>} className={className}>{children}</Tag>;
 }
