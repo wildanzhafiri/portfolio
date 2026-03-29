@@ -79,32 +79,40 @@ export function About() {
           </h2>
 
           <div className="space-y-5">
-            <p ref={setTextRef(2)} className="text-base leading-relaxed opacity-0" style={{ color: 'rgb(var(--fg-muted))' }}>
+            <p ref={setTextRef(2)} className="text-base leading-relaxed opacity-0 text-justify" style={{ color: 'rgb(var(--fg-muted))' }}>
               I'm currently in my third year studying Information Technology at Brawijaya University, with a strong interest in web development. I focus on building projects that are not only visually appealing but also easy to use.
             </p>
 
-            <p ref={setTextRef(3)} className="text-base leading-relaxed opacity-0" style={{ color: 'rgb(var(--fg-muted))' }}>
+            <p ref={setTextRef(3)} className="text-base leading-relaxed opacity-0 text-justify" style={{ color: 'rgb(var(--fg-muted))' }}>
               I’ve been involved in projects where I collaborate with people from different backgrounds, exchanging ideas and working toward shared outcomes. These experiences have helped me improve how I approach problems and adapt to
               different situations.
             </p>
 
             <div ref={setTextRef(4)} className="mt-8 pt-6 border-t border-[rgba(var(--fg),0.08)] opacity-0">
-              <div className="grid grid-cols-2 gap-4 text-sm" style={{ fontFamily: 'var(--font-mono)' }}>
+              <div className="grid grid-cols-3 gap-6 text-center" style={{ fontFamily: 'var(--font-mono)' }}>
                 <div>
-                  <span style={{ color: 'rgb(var(--fg-dim))' }}>location</span>
-                  <p className="text-[rgb(var(--fg))] mt-1">Malang, ID</p>
+                  <p className="text-2xl font-bold" style={{ color: 'rgb(var(--accent))' }}>
+                    3+
+                  </p>
+                  <span className="text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--fg-dim))' }}>
+                    Years Coding
+                  </span>
                 </div>
                 <div>
-                  <span style={{ color: 'rgb(var(--fg-dim))' }}>focus</span>
-                  <p className="text-[rgb(var(--fg))] mt-1">Frontend Dev</p>
+                  <p className="text-2xl font-bold" style={{ color: 'rgb(var(--accent))' }}>
+                    12+
+                  </p>
+                  <span className="text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--fg-dim))' }}>
+                    Projects Built
+                  </span>
                 </div>
                 <div>
-                  <span style={{ color: 'rgb(var(--fg-dim))' }}>status</span>
-                  <p className="text-[rgb(var(--accent))] mt-1">Open to work</p>
-                </div>
-                <div>
-                  <span style={{ color: 'rgb(var(--fg-dim))' }}>university</span>
-                  <p className="text-[rgb(var(--fg))] mt-1">Brawijaya University</p>
+                  <p className="text-2xl font-bold" style={{ color: 'rgb(var(--accent))' }}>
+                    5+
+                  </p>
+                  <span className="text-xs uppercase tracking-wider" style={{ color: 'rgb(var(--fg-dim))' }}>
+                    Team Collabs
+                  </span>
                 </div>
               </div>
             </div>

@@ -8,7 +8,6 @@ export const techStack: TechItem[] = [
   { name: 'Next.js', category: 'frontend' },
   { name: 'Vue.js', category: 'frontend' },
   { name: 'Nuxt.js', category: 'frontend' },
-  { name: 'TypeScript', category: 'frontend' },
   { name: 'Tailwind CSS', category: 'frontend' },
 
   { name: 'REST APIs', category: 'data-api' },
@@ -18,7 +17,6 @@ export const techStack: TechItem[] = [
 
   { name: 'Git', category: 'tools' },
   { name: 'GitHub', category: 'tools' },
-  { name: 'Gitlab', category: 'tools' },
   { name: 'Postman', category: 'tools' },
   { name: 'Figma', category: 'tools' },
 
