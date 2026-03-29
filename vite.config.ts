@@ -7,13 +7,12 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/portfolio-2025/',
+  base: '/portfolio/',
   plugins: [
     react(),
     tailwindcss(),
     imagetools({
       defaultDirectives: (url) => {
-        // Auto-optimize images
         if (url.searchParams.has('optimize')) {
           return new URLSearchParams({
             format: 'webp',
@@ -45,13 +44,13 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom'],
           'framer-motion': ['framer-motion'],
           'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'icons': ['lucide-react'],
+          icons: ['lucide-react'],
         },
       },
     },
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
-    minify: 'esbuild', // esbuild is faster and built-in
+    minify: 'esbuild',
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion'],
