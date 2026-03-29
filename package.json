@@ -7,8 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "analyze": "vite-bundle-visualizer"
+    "preview": "npm run build && wrangler dev",
+    "analyze": "vite-bundle-visualizer",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -29,6 +30,7 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.30.2",
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
@@ -44,6 +46,7 @@
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
     "vite-imagetools": "^7.0.4",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "wrangler": "^4.78.0"
   }
 }
