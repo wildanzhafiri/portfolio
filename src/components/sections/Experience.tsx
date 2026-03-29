@@ -61,7 +61,7 @@ export function Experience() {
             const photoLeft = i % 2 === 0;
 
             return (
-              <div key={exp.year + exp.label} className="exp-card relative flex-shrink-0 w-screen h-full">
+              <div key={exp.year + exp.label} className="exp-card relative h-full w-full min-w-full flex-shrink-0">
                 <div className="hidden md:block absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden>
                   <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(10rem,22vw,18rem)] font-extrabold leading-none opacity-[0.03]" style={{ fontFamily: 'var(--font-display)' }}>
                     {exp.year}
