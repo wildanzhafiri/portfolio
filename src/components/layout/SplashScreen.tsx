@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUIStore } from '../../app/store/ui.store';
 import { useDeviceCapability } from '../../hooks/useDeviceCapability';
-
-const SplashCanvas = lazy(() => import('./SplashCanvas'));
+import SplashCanvas from './SplashCanvas';
 
 type Phase = 'text' | 'pause' | 'forming' | 'hold' | 'explode' | 'done';
 
 const TIMING = {
-  text: 800,
+  text: 1400,
   pause: 1500,
   forming: 2000,
   hold: 800,
@@ -21,14 +20,22 @@ export function SplashScreen() {
   const { enable3D, tier } = useDeviceCapability();
   const [phase, setPhase] = useState<Phase>('text');
   const [progress, setProgress] = useState(0);
+  const [textStarted, setTextStarted] = useState(false);
   const [visible, setVisible] = useState(true);
   const [shake, setShake] = useState(false);
   const startRef = useRef(0);
+  const frameRef = useRef<number | null>(null);
+  const finishTimeoutRef = useRef<number | null>(null);
+  const textStartedRef = useRef(false);
+  const showScene = phase === 'forming' || phase === 'hold' || phase === 'explode';
 
   useEffect(() => {
+    let cancelled = false;
     startRef.current = performance.now();
 
     const animate = (now: number) => {
+      if (cancelled) return;
+
       const elapsed = now - startRef.current;
 
       const t1 = TIMING.text;
@@ -38,39 +45,48 @@ export function SplashScreen() {
       const t4 = t3 + TIMING.explode;
 
       if (elapsed < t1) {
+        if (!textStartedRef.current) {
+          textStartedRef.current = true;
+          setTextStarted(true);
+        }
         setPhase('text');
         setProgress(elapsed / t1);
-        requestAnimationFrame(animate);
+        frameRef.current = requestAnimationFrame(animate);
       } else if (elapsed < t1b) {
         setPhase('pause');
         setProgress(1);
-        requestAnimationFrame(animate);
+        frameRef.current = requestAnimationFrame(animate);
       } else if (elapsed < t2) {
         setPhase('forming');
         setProgress((elapsed - t1b) / TIMING.forming);
-        requestAnimationFrame(animate);
+        frameRef.current = requestAnimationFrame(animate);
       } else if (elapsed < t3) {
         setPhase('hold');
         setProgress((elapsed - t2) / TIMING.hold);
-        requestAnimationFrame(animate);
+        frameRef.current = requestAnimationFrame(animate);
       } else if (elapsed < t4) {
         const p = (elapsed - t3) / TIMING.explode;
         setPhase('explode');
         setProgress(p);
         if (tier === 'high' && p < 0.15) setShake(true);
         else setShake(false);
-        requestAnimationFrame(animate);
+        frameRef.current = requestAnimationFrame(animate);
       } else {
         setPhase('done');
         setProgress(1);
         setShake(false);
         setVisible(false);
-        setTimeout(() => setSplashDone(true), TIMING.fade);
+        finishTimeoutRef.current = window.setTimeout(() => setSplashDone(true), TIMING.fade);
       }
     };
 
-    const raf = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(raf);
+    frameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      cancelled = true;
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      if (finishTimeoutRef.current !== null) clearTimeout(finishTimeoutRef.current);
+    };
   }, [setSplashDone, tier]);
 
   return (
@@ -94,12 +110,17 @@ export function SplashScreen() {
           >
 
             {enable3D ? (
-              <Suspense fallback={null}>
+              <motion.div
+                className="absolute inset-0"
+                initial={false}
+                animate={{ opacity: showScene ? 1 : 0 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
                 <SplashCanvas
-                  phase={phase === 'text' || phase === 'pause' ? 'forming' : phase}
-                  progress={phase === 'text' || phase === 'pause' ? 0 : progress}
+                  phase={showScene ? phase : 'done'}
+                  progress={showScene ? progress : 0}
                 />
-              </Suspense>
+              </motion.div>
             ) : (
               <Splash2D phase={phase} progress={progress} />
             )}
@@ -198,17 +219,19 @@ export function SplashScreen() {
 
           <motion.div
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{
-              opacity: phase === 'text' || phase === 'pause' ? 1 : 0,
+              opacity: textStarted && (phase === 'text' || phase === 'pause') ? 1 : 0,
             }}
             transition={{ duration: 0.3 }}
           >
-            <TypingText
-              text="Welcome to my portfolio"
-              active={phase === 'text' || phase === 'pause'}
-              progress={phase === 'pause' ? 1 : progress}
-            />
+            {textStarted ? (
+              <TypingText
+                text="Welcome to my portfolio"
+                active={phase === 'text' || phase === 'pause'}
+                progress={phase === 'pause' ? 1 : progress}
+              />
+            ) : null}
           </motion.div>
 
         </motion.div>
@@ -226,7 +249,7 @@ function TypingText({
   active: boolean;
   progress: number;
 }) {
-  const visibleChars = active ? Math.min(text.length, Math.floor(progress * text.length * 1.2)) : text.length;
+  const visibleChars = active ? Math.min(text.length, Math.floor(progress * text.length)) : text.length;
   const visibleText = text.slice(0, visibleChars);
 
   return (
