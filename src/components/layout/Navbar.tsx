@@ -129,6 +129,7 @@ export function Navbar() {
             <a
               href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2025.pdf`}
               download
+              aria-label="Download Wildan's CV (PDF)"
               className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs border border-[rgba(var(--accent),0.2)] text-[rgb(var(--accent))] hover:bg-[rgba(var(--accent),0.08)] transition-colors"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
@@ -165,7 +166,7 @@ export function Navbar() {
               transition={{ type: 'spring', stiffness: 300, damping: 35 }}
             >
               <div className="flex justify-end mb-6">
-                <button onClick={() => setMobileOpen(false)} className="p-2 text-[rgb(var(--fg-muted))]">
+                <button onClick={() => setMobileOpen(false)} className="p-2 text-[rgb(var(--fg-muted))]" aria-label="Close menu">
                   <X className="w-5 h-5" />
                 </button>
               </div>
