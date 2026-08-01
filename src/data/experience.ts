@@ -19,7 +19,7 @@ export const experiences: Experience[] = [
   //   context: 'Early Exploration and Direction',
   //   story: 'Explored multiple areas of IT, learned fundamentals of web and software development, and began developing a strong interest in frontend development.',
   //   highlights: ['Explored multiple areas of information technology', 'Learned fundamental concepts of web and software development', 'Began understanding frontend development in real projects'],
-  //   image: `${BASE}images/dokum maba.png`,
+  //   image: `${BASE}images/dokum maba.webp`,
   //   imageOrientation: 'portrait',
   // },
   {
@@ -29,7 +29,7 @@ export const experiences: Experience[] = [
     context: 'Universitas Airlangga',
     story: 'Contributed as a Front-End Developer in a team project called “Kenal Batik”, an interactive web platform introducing Indonesian batik culture with gamification features such as quizzes and  experience points ',
     highlights: ['Worked as frontend developer using React', 'Integrated REST APIs and handled dynamic data', 'Collaborated in a team under tight competition deadlines'],
-    image: `${BASE}images/dokum teknovistafest.png`,
+    image: `${BASE}images/dokum teknovistafest.webp`,
     imageOrientation: 'portrait',
   },
   {
@@ -43,7 +43,7 @@ export const experiences: Experience[] = [
       'Developed announcement feature for publishing student selection results',
       'Mentored internship staff by guiding them through an SDGs-based project',
     ],
-    image: `${BASE}images/dokum ptpd.png`,
+    image: `${BASE}images/dokum ptpd.webp`,
     imageOrientation: 'landscape',
   },
   {
@@ -53,7 +53,7 @@ export const experiences: Experience[] = [
     context: 'Teaching Environment',
     story: 'Assisted students during web development practicum sessions by guiding them through concepts and helping resolve technical issues.',
     highlights: ['Led weekly practicum sessions on web development topics', 'Explained HTML, CSS, JavaScript, PHP, and Laravel fundamentals', 'Reviewed and evaluated student assignments'],
-    image: `${BASE}images/dokum asprak.png`,
+    image: `${BASE}images/dokum asprak.webp`,
     imageOrientation: 'landscape',
   },
   {
@@ -68,7 +68,7 @@ export const experiences: Experience[] = [
       'Implemented donation features for an alumni community network platform',
       'Integrated frontend with multiple backend services',
     ],
-    image: `${BASE}images/dokum jalin.png`,
+    image: `${BASE}images/dokum jalin.webp`,
     imageOrientation: 'landscape',
   },
 ];
