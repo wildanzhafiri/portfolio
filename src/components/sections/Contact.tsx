@@ -49,7 +49,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="relative py-32 px-6" style={{ background: 'rgb(var(--bg))' }}>
+    <section id="contact" ref={sectionRef} className="relative py-32 px-6" aria-label="Contact" style={{ background: 'rgb(var(--bg))' }}>
       <div className="max-w-4xl mx-auto text-center">
         <p
           className="contact-reveal text-xs uppercase tracking-[0.3em] mb-6 opacity-0"
@@ -70,6 +70,7 @@ export function Contact() {
         <div className="contact-reveal mt-12 opacity-0">
           <button
             onClick={copyEmail}
+            aria-label={copied ? 'Email address copied!' : 'Copy email address to clipboard'}
             className="group inline-flex items-center gap-3 text-lg md:text-xl hover:text-[rgb(var(--accent))] transition-colors"
             style={{ fontFamily: 'var(--font-mono)', color: 'rgb(var(--fg-muted))' }}
           >
