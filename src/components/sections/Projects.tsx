@@ -39,7 +39,7 @@ export function Projects() {
   };
 
   return (
-    <section id="projects" ref={sectionRef} className="relative py-32 px-6" style={{ background: 'rgb(var(--bg))' }}>
+    <section id="projects" ref={sectionRef} className="relative py-32 px-6" aria-label="Projects" style={{ background: 'rgb(var(--bg))' }}>
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
           <p
@@ -59,9 +59,10 @@ export function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
             <TiltCard key={project.slug} className="project-card opacity-0">
-              <div
+              <article
                 className="group overflow-hidden rounded-2xl border border-[rgba(var(--fg),0.06)] cursor-pointer transition-all duration-300 hover:border-[rgba(var(--accent),0.2)]"
                 onClick={() => goToProject(project.slug)}
+                aria-label={`${project.title} — ${project.tagline}`}
               >
                 <div className="relative overflow-hidden h-52 md:h-60">
                   <img
@@ -132,7 +133,7 @@ export function Projects() {
                     )}
                   </div>
                 </div>
-              </div>
+              </article>
             </TiltCard>
           ))}
         </div>
