@@ -58,11 +58,16 @@ export function About() {
   };
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-32 px-6">
+    <section id="about" ref={sectionRef} className="relative py-32 px-6" aria-label="About Wildan">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.45fr_0.55fr] gap-12 lg:gap-20 items-center">
         <div ref={imageRef} className="relative">
           <div className="relative overflow-hidden" style={{ clipPath: 'polygon(0 4%, 100% 0, 96% 100%, 4% 96%)' }}>
-            <img src={`${BASE}images/profile2.png`} alt="Wildan" className="w-full aspect-3/4 sm:-translate-y-20 object-cover object-top grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" />
+            <img
+              src={`${BASE}images/profile2.png`}
+              alt="Muhammad Wildan Zhafiri — Frontend Developer, IT student at Brawijaya University"
+              className="w-full aspect-3/4 sm:-translate-y-20 object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
+              loading="lazy"
+            />
             <div className="absolute inset-0 bg-[rgba(var(--accent),0.08)] mix-blend-color" />
           </div>
 
@@ -80,16 +85,18 @@ export function About() {
 
           <div className="space-y-5">
             <p ref={setTextRef(2)} className="text-base leading-relaxed opacity-0 text-justify" style={{ color: 'rgb(var(--fg-muted))' }}>
-              I'm currently in my third year studying Information Technology at Brawijaya University, with a strong interest in web development. I focus on building projects that are not only visually appealing but also easy to use.
+              Information Technology undergraduate at Brawijaya University with three years of hands-on experience in frontend and backend web development. I have worked with JavaScript-based stacks, API integration, responsive interfaces,
+              state management, and product iteration. I’m especially interested in building modern web products that connect interface, logic, data, and real user needs into a clear and reliable experience.
             </p>
 
             <p ref={setTextRef(3)} className="text-base leading-relaxed opacity-0 text-justify" style={{ color: 'rgb(var(--fg-muted))' }}>
-              I’ve been involved in projects where I collaborate with people from different backgrounds, exchanging ideas and working toward shared outcomes. These experiences have helped me improve how I approach problems and adapt to
-              different situations.
+              I also use AI intentionally in both product development and my engineering workflow to understand codebases, break down tasks, explore solutions, debug, refactor, and improve execution speed while keeping final technical and
+              product decisions in my own hands. Beyond using AI as a development tool, I’m interested in building AI-powered features that fit naturally into real user flows, while continuing to explore Web3 through concepts such as
+              ownership, transparency, and decentralized systems.
             </p>
 
             <div ref={setTextRef(4)} className="mt-8 pt-6 border-t border-[rgba(var(--fg),0.08)] opacity-0">
-              <div className="grid grid-cols-3 gap-6 text-center" style={{ fontFamily: 'var(--font-mono)' }}>
+              <div className="grid grid-cols-3 gap-6 text-center" style={{ fontFamily: 'var(--font-mono)' }} role="list" aria-label="Key stats">
                 <div>
                   <p className="text-2xl font-bold" style={{ color: 'rgb(var(--accent))' }}>
                     3+
