@@ -41,8 +41,9 @@ export default function ProjectDetail() {
       <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
         <img
           src={project.thumbnail}
-          alt={project.title}
+          alt={`${project.title} — ${project.tagline}`}
           className="w-full h-full object-cover object-top"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--bg))] via-[rgba(var(--bg),0.6)] to-transparent" />
 
@@ -195,7 +196,7 @@ export default function ProjectDetail() {
         >
           <img
             src={project.images[lightboxIdx]}
-            alt=""
+            alt={`${project.title} screenshot ${lightboxIdx + 1} of ${project.images.length}`}
             className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
           />
           <div className="absolute bottom-6 text-center text-sm text-white/50" style={{ fontFamily: 'var(--font-mono)' }}>
