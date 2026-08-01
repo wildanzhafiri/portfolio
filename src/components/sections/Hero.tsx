@@ -59,7 +59,7 @@ export function Hero() {
   const nameChars = 'Wildan'.split('');
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden" aria-label="Introduction">
       {enable3D ? (
         <Suspense fallback={null}>
           <HeroScene mouseX={normalizedX} mouseY={normalizedY} />
