@@ -145,7 +145,7 @@ export function TechStack() {
   };
 
   return (
-    <section id="skills" ref={sectionRef} className="relative py-32 px-6">
+    <section id="skills" ref={sectionRef} className="relative py-32 px-6" aria-label="Tech Stack">
       <div className="max-w-6xl mx-auto">
         <div ref={titleRef} className="mb-16">
           <p
@@ -226,6 +226,8 @@ export function TechStack() {
                   <button
                     onClick={() => handleCategoryClick(cat)}
                     className="w-full flex items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-[rgba(var(--fg),0.02)]"
+                    aria-expanded={isOpen}
+                    aria-controls={`tech-cat-${cat}`}
                   >
                     <ChevronRight
                       className="w-4 h-4 transition-transform duration-300 shrink-0"
@@ -257,6 +259,8 @@ export function TechStack() {
                   </button>
 
                   <div
+                    id={`tech-cat-${cat}`}
+                    role="region"
                     className="overflow-hidden transition-all duration-400 ease-out"
                     style={{
                       maxHeight: isOpen ? `${items.length * 52 + 16}px` : '0px',
