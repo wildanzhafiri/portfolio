@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'framer-motion';
 import { experiences, type Experience } from '../../data/experience';
+import { getLenis } from '../layout/SmoothScroll';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,12 +23,6 @@ export function Experience() {
   const pinRef = useRef<HTMLDivElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
   const [activeExp, setActiveExp] = useState<Experience | null>(null);
-
-  // Stack animation runs on ALL screen sizes with a fixed card height (required
-  // for the pin/scrub stack effect). To make sure long text never gets clipped,
-  // each card only shows a short preview (title + truncated story). Tapping
-  // "View details" opens a modal with the full story + highlights instead of
-  // trying to cram everything into the fixed-height card or scroll inside it.
   useEffect(() => {
     const section = sectionRef.current;
     const pin = pinRef.current;
@@ -57,7 +52,7 @@ export function Experience() {
           trigger: section,
           start: 'top top',
           end: () => `+=${Math.max(window.innerHeight * 0.82 * (cards.length - 1), 820)}`,
-          scrub: 0.8,
+          scrub: 0.6,
           pin,
           pinSpacing: true,
           anticipatePin: 1,
@@ -79,7 +74,7 @@ export function Experience() {
             rotate: index % 2 === 0 ? -6 : 6,
             scale: 0.94,
             opacity: 0,
-            ease: 'power2.inOut',
+            ease: 'none',
             duration: 1,
           },
           step,
@@ -94,7 +89,7 @@ export function Experience() {
               ...state,
               yPercent: 0,
               xPercent: 0,
-              ease: 'power2.inOut',
+              ease: 'none',
               duration: 1,
             },
             step,
@@ -106,12 +101,16 @@ export function Experience() {
     return () => ctx.revert();
   }, []);
 
-  // Lock background scroll while the detail modal is open
   useEffect(() => {
     if (!activeExp) return;
+
+    const lenis = getLenis();
+    lenis?.stop();
     const original = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
     return () => {
+      lenis?.start();
       document.body.style.overflow = original;
     };
   }, [activeExp]);
@@ -146,80 +145,76 @@ export function Experience() {
           </div>
         </div>
 
-        <div ref={stackRef} className="relative z-10 mx-auto mt-8 flex w-full max-w-6xl flex-1 items-center justify-center">
-          {experiences.map((exp, i) => (
-            <article
-              key={exp.year + exp.label}
-              className="exp-stack-card absolute inset-x-0 mx-auto flex h-[min(78svh,620px)] max-h-[620px] min-h-[480px] w-full flex-col overflow-hidden rounded-[1.5rem] border-2 bg-[rgb(var(--bg-card))] md:h-[min(70svh,560px)] md:max-h-[560px] md:min-h-[420px] md:flex-row"
-              style={{ borderColor: 'rgba(var(--accent), 0.3)', contain: 'layout paint', boxShadow: cardShadow }}
-            >
-              {/* Image: fixed portion of the card, never grows/shrinks with text length */}
-              <div className="relative h-[40%] w-full shrink-0 overflow-hidden md:h-full md:w-[46%]">
-                <img src={exp.image} alt={exp.title} className="h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
-                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--bg),0.85)] via-[rgba(var(--bg),0.05)] to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[rgba(var(--bg-card),0.92)]" />
-                <div
-                  className="absolute left-4 top-4 rounded-full border px-3 py-1.5 text-xs font-bold"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    background: 'rgba(var(--bg), 0.58)',
-                    borderColor: 'rgba(var(--accent), 0.24)',
-                    color: 'rgb(var(--accent))',
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')} / {String(experiences.length).padStart(2, '0')}
+        <div ref={stackRef} className="relative z-10 mx-auto mt-5 flex w-full max-w-6xl min-h-0 flex-1 items-center justify-center md:mt-8">
+          <div className="relative h-full max-h-[600px] w-full">
+            {experiences.map((exp, i) => (
+              <article
+                key={exp.year + exp.label}
+                className="exp-stack-card absolute inset-0 flex w-full flex-col overflow-hidden rounded-[1.5rem] border-2 bg-[rgb(var(--bg-card))] md:flex-row"
+                style={{ borderColor: 'rgba(var(--accent), 0.3)', contain: 'layout paint', boxShadow: cardShadow }}
+              >
+                <div className="relative h-[38%] w-full shrink-0 overflow-hidden md:h-full md:w-[46%]">
+                  <img src={exp.image} alt={exp.title} className="h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(var(--bg),0.85)] via-[rgba(var(--bg),0.05)] to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[rgba(var(--bg-card),0.92)]" />
+                  <div
+                    className="absolute left-4 top-4 rounded-full border px-3 py-1.5 text-xs font-bold"
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      background: 'rgba(var(--bg), 0.58)',
+                      borderColor: 'rgba(var(--accent), 0.24)',
+                      color: 'rgb(var(--accent))',
+                    }}
+                  >
+                    {String(i + 1).padStart(2, '0')} / {String(experiences.length).padStart(2, '0')}
+                  </div>
                 </div>
-              </div>
+                <div className="relative flex min-h-0 w-full flex-1 flex-col justify-center overflow-hidden px-6 py-5 md:w-[54%] md:px-10 lg:px-14">
+                  <span
+                    className="mb-3 inline-flex w-fit shrink-0 rounded-full border px-3 py-1.5 text-xs font-bold md:mb-4"
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      background: 'rgba(var(--accent), 0.1)',
+                      color: 'rgb(var(--accent))',
+                      borderColor: 'rgba(var(--accent), 0.2)',
+                    }}
+                  >
+                    {exp.year} / {exp.label}
+                  </span>
 
-              {/* Text panel: fixed height, short preview only. Full story +
-                  highlights are revealed via the "View details" modal so
-                  nothing here ever needs to scroll or gets clipped. */}
-              <div className="relative flex min-h-0 w-full flex-1 flex-col justify-center px-6 py-5 md:w-[54%] md:px-10 lg:px-14">
-                <span
-                  className="mb-3 inline-flex w-fit shrink-0 rounded-full border px-3 py-1.5 text-xs font-bold md:mb-4"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    background: 'rgba(var(--accent), 0.1)',
-                    color: 'rgb(var(--accent))',
-                    borderColor: 'rgba(var(--accent), 0.2)',
-                  }}
-                >
-                  {exp.year} / {exp.label}
-                </span>
+                  <h3 className="mb-2 shrink-0 text-lg font-bold leading-tight text-[rgb(var(--fg))] md:mb-3 md:text-3xl" style={{ fontFamily: 'var(--font-display)' }}>
+                    {exp.title}
+                  </h3>
 
-                <h3 className="mb-2 shrink-0 text-xl font-bold leading-tight text-[rgb(var(--fg))] md:mb-3 md:text-3xl" style={{ fontFamily: 'var(--font-display)' }}>
-                  {exp.title}
-                </h3>
+                  <p className="mb-3 shrink-0 text-xs uppercase tracking-[0.15em] md:mb-5" style={{ fontFamily: 'var(--font-mono)', color: 'rgb(var(--fg-dim))' }}>
+                    {exp.context}
+                  </p>
 
-                <p className="mb-3 shrink-0 text-xs uppercase tracking-[0.15em] md:mb-5" style={{ fontFamily: 'var(--font-mono)', color: 'rgb(var(--fg-dim))' }}>
-                  {exp.context}
-                </p>
+                  <p className="line-clamp-2 max-w-xl text-sm leading-relaxed md:line-clamp-3" style={{ color: 'rgb(var(--fg-muted))' }}>
+                    {exp.story}
+                  </p>
 
-                <p className="line-clamp-2 max-w-xl text-sm leading-relaxed md:line-clamp-3" style={{ color: 'rgb(var(--fg-muted))' }}>
-                  {exp.story}
-                </p>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveExp(exp)}
-                  className="group mt-4 inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] transition-colors md:mt-6"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    color: 'rgb(var(--accent))',
-                    borderColor: 'rgba(var(--accent), 0.4)',
-                    background: 'rgba(var(--accent), 0.08)',
-                  }}
-                >
-                  View details
-                  <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </button>
-              </div>
-            </article>
-          ))}
+                  <button
+                    type="button"
+                    onClick={() => setActiveExp(exp)}
+                    className="group mt-4 inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] transition-colors md:mt-6"
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      color: 'rgb(var(--accent))',
+                      borderColor: 'rgba(var(--accent), 0.4)',
+                      background: 'rgba(var(--accent), 0.08)',
+                    }}
+                  >
+                    View details
+                    <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Detail modal: shows the full story + all highlights, opened by
-          tapping "View details" on any card. */}
+
       <AnimatePresence>
         {activeExp && (
           <motion.div
