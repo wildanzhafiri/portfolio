@@ -12,16 +12,6 @@ export interface Experience {
 const BASE = import.meta.env.BASE_URL;
 
 export const experiences: Experience[] = [
-  // {
-  //   year: '2023',
-  //   label: 'Foundation',
-  //   title: 'Entering the World of Information Technology',
-  //   context: 'Early Exploration and Direction',
-  //   story: 'Explored multiple areas of IT, learned fundamentals of web and software development, and began developing a strong interest in frontend development.',
-  //   highlights: ['Explored multiple areas of information technology', 'Learned fundamental concepts of web and software development', 'Began understanding frontend development in real projects'],
-  //   image: `${BASE}images/dokum maba.webp`,
-  //   imageOrientation: 'portrait',
-  // },
   {
     year: '2024',
     label: 'Milestone',
@@ -37,11 +27,12 @@ export const experiences: Experience[] = [
     label: 'Organization',
     title: 'Expert Staff at Communication and Information Center',
     context: 'Eksekutif Mahasiswa Universitas Brawijaya',
-    story: 'Rebuilt the official EM UB website and introduced new features to support internal programs, while guiding internship staff through an SDGs-based project as part of their learning process.',
+    story: 'Rebuilt the official EM UB website using Next.js, TypeScript, and GraphQL. The platform supported more than 1,300 users and served as a central channel for program registration and selection announcements.',
     highlights: [
-      'Implemented program registration system using dynamic forms with autosave',
-      'Developed announcement feature for publishing student selection results',
-      'Mentored internship staff by guiding them through an SDGs-based project',
+      'Built a program registration system with dynamic forms, autosave functionality, and GraphQL integration',
+      'Developed an announcement feature for publishing program selection results',
+      'Created reusable UI components, page navigation, and user interaction flows',
+      'Mentored internship staff in implementing front-end concepts for SDGs-related web projects',
     ],
     image: `${BASE}images/dokum ptpd.webp`,
     imageOrientation: 'landscape',
@@ -50,7 +41,7 @@ export const experiences: Experience[] = [
     year: '2025',
     label: 'Lab Assistant',
     title: 'Lab Assistant for Web Application Programming',
-    context: 'Teaching Environment',
+    context: 'Faculty of Computer Science, Universitas Brawijaya',
     story: 'Assisted students during web development practicum sessions by guiding them through concepts and helping resolve technical issues.',
     highlights: ['Led weekly practicum sessions on web development topics', 'Explained HTML, CSS, JavaScript, PHP, and Laravel fundamentals', 'Reviewed and evaluated student assignments'],
     image: `${BASE}images/dokum asprak.webp`,
@@ -59,14 +50,15 @@ export const experiences: Experience[] = [
   {
     year: '2026',
     label: 'Internship',
-    title: 'Frontend Engineer Intern at PT. Jalin Mayantara Indonesia',
-    context: 'Industry Experience',
+    title: 'Frontend Developer Intern at PT. Jalin Mayantara Indonesia',
+    context: 'PT. Jalin Mayantara Indonesia',
     story:
-      'Contributed to the development of a microservices based crowdfunding system and an alumni community network platform, involving both feature planning and implementation while learning industry standard practices and professional workflows.',
+      'Developed frontend features for a microservice-based digital education ecosystem and several internal products. Contributed to student examination workflows, AI-powered learning analysis, and the complete feature delivery process while collaborating with designers, backend engineers, and the team leader.',
     highlights: [
-      'Planned and developed core features for a crowdfunding system including admin panel, partner management, authentication, and campaign management',
-      'Implemented donation features for an alumni community network platform',
-      'Integrated frontend with multiple backend services',
+      'Built exam flows, teacher dashboards, pre-test and post-test experiences, onboarding, and AI-based question generation features',
+      'Integrated APIs and handled page states, mobile-lock layouts, and exam result mapping to help teachers identify learning groups, topics requiring reinforcement, and recommended follow-up actions',
+      'Supported feature delivery from implementation and review through testing, UAT, internal demos, and post-release bug fixing',
+      'Developed donation, campaign management, report download, and question digitalization features across Vue, Nuxt, and Next.js codebases',
     ],
     image: `${BASE}images/dokum jalin.webp`,
     imageOrientation: 'landscape',
