@@ -256,7 +256,7 @@ export function Experience() {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto px-6 py-6 sm:px-8">
+              <div className="flex-1 overflow-y-auto px-6 py-6 sm:px-8" data-lenis-prevent>
                 <span
                   className="mb-4 inline-flex w-fit rounded-full border px-3 py-1.5 text-xs font-bold"
                   style={{
