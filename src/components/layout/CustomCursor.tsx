@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { useUIStore } from '../../app/store/ui.store';
 
 export function CustomCursor() {
@@ -46,7 +47,9 @@ export function CustomCursor() {
   }, []);
 
   const isView = cursorVariant === 'view';
+  const isGo = cursorVariant === 'go';
   const isHover = cursorVariant === 'hover';
+  const isLabeled = isView || isGo;
 
   return (
     <>
@@ -58,8 +61,8 @@ export function CustomCursor() {
         <div
           className="rounded-full bg-white transition-[width,height] duration-200"
           style={{
-            width: isView ? 0 : 8,
-            height: isView ? 0 : 8,
+            width: isLabeled ? 0 : 8,
+            height: isLabeled ? 0 : 8,
           }}
         />
       </div>
@@ -70,16 +73,23 @@ export function CustomCursor() {
         style={{ willChange: 'transform' }}
       >
         <div
-          className="flex items-center justify-center rounded-full border border-white/60 transition-all duration-300"
+          className="flex items-center justify-center gap-1 rounded-full border border-white/60 transition-all duration-300"
           style={{
-            width: isView ? 80 : isHover ? 56 : 40,
-            height: isView ? 80 : isHover ? 56 : 40,
+            width: isView ? 80 : isGo ? 46 : isHover ? 56 : 40,
+            height: isView ? 80 : isGo ? 46 : isHover ? 56 : 40,
           }}
         >
           {isView && (
             <span className="text-[11px] font-medium tracking-wider uppercase text-white">
               View
             </span>
+          )}
+          {isGo && (
+            <ArrowUpRight
+              className="w-5 h-5 text-white"
+              style={{ transform: 'translate(-6px, -6px)' }}
+              strokeWidth={2.5}
+            />
           )}
         </div>
       </div>

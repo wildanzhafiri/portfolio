@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'framer-motion';
 import { experiences, type Experience } from '../../data/experience';
 import { getLenis } from '../layout/SmoothScroll';
+import { useCursor } from '../../hooks/useCursor';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,7 @@ export function Experience() {
   const pinRef = useRef<HTMLDivElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
   const [activeExp, setActiveExp] = useState<Experience | null>(null);
+  const viewCursor = useCursor('view');
   useEffect(() => {
     const section = sectionRef.current;
     const pin = pinRef.current;
@@ -196,6 +198,7 @@ export function Experience() {
                   <button
                     type="button"
                     onClick={() => setActiveExp(exp)}
+                    {...viewCursor}
                     className="group mt-4 inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] transition-colors md:mt-6"
                     style={{
                       fontFamily: 'var(--font-mono)',

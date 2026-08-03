@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type CursorVariant = 'default' | 'hover' | 'view';
+export type CursorVariant = 'default' | 'hover' | 'view' | 'go';
 
 interface UIState {
   splashDone: boolean;

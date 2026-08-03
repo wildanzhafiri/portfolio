@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { techStack, categoryLabels, type TechItem } from '../../data/techstack';
 import { Terminal, ChevronRight, Folder, FileCode2 } from 'lucide-react';
+import { useCursor } from '../../hooks/useCursor';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,6 +29,7 @@ export function TechStack() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const delayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openCat, setOpenCat] = useState<TechItem['category'] | null>(null);
+  const viewCursor = useCursor('view');
   const [typedLines, setTypedLines] = useState<string[]>(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
     return [
@@ -225,6 +227,7 @@ export function TechStack() {
                 >
                   <button
                     onClick={() => handleCategoryClick(cat)}
+                    {...viewCursor}
                     className="w-full flex items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-[rgba(var(--fg),0.02)]"
                     aria-expanded={isOpen}
                     aria-controls={`tech-cat-${cat}`}

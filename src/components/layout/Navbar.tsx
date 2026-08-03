@@ -4,6 +4,7 @@ import { Menu, X, Download } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getLenis } from './SmoothScroll';
+import { useCursor } from '../../hooks/useCursor';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState('home');
+  const goCursor = useCursor('go');
 
   useEffect(() => {
     const onScroll = () => {
@@ -91,6 +93,7 @@ export function Navbar() {
           <a
             href="#home"
             onClick={(e) => { e.preventDefault(); scrollTo('#home'); }}
+            {...goCursor}
             className="text-lg font-bold tracking-tight"
             style={{ fontFamily: 'var(--font-display)' }}
           >
@@ -106,6 +109,7 @@ export function Navbar() {
                   key={href}
                   href={href}
                   onClick={(e) => { e.preventDefault(); scrollTo(href); }}
+                  {...goCursor}
                   className={`relative px-3 py-2 text-sm transition-colors ${
                     isActive ? 'text-[rgb(var(--accent))]' : 'text-[rgb(var(--fg-muted))] hover:text-[rgb(var(--fg))]'
                   }`}
@@ -130,6 +134,7 @@ export function Navbar() {
               href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2026.pdf`}
               download
               aria-label="Download Wildan's CV (PDF)"
+              {...goCursor}
               className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs border border-[rgba(var(--accent),0.2)] text-[rgb(var(--accent))] hover:bg-[rgba(var(--accent),0.08)] transition-colors"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
