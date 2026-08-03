@@ -127,7 +127,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-3">
             <a
-              href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2025.pdf`}
+              href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2026.pdf`}
               download
               aria-label="Download Wildan's CV (PDF)"
               className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs border border-[rgba(var(--accent),0.2)] text-[rgb(var(--accent))] hover:bg-[rgba(var(--accent),0.08)] transition-colors"
@@ -189,7 +189,7 @@ export function Navbar() {
               ))}
 
               <motion.a
-                href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2025.pdf`}
+                href={`${BASE}resume/CV_Muhammad_Wildan_Zhafiri_2026.pdf`}
                 download
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
