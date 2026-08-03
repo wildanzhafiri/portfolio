@@ -1,16 +1,40 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '../data/projects';
 import { ArrowLeft, ArrowRight, ExternalLink, GithubIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [isBackVisible, setIsBackVisible] = useState(false);
+  const contentStartRef = useRef<HTMLDivElement>(null);
 
   const projectIdx = projects.findIndex((p) => p.slug === slug);
   const project = projects[projectIdx];
+
+  useEffect(() => {
+    const anchor = contentStartRef.current;
+    if (!anchor) return;
+
+    let visible = false;
+    const handleScroll = () => {
+      const next = anchor.getBoundingClientRect().top <= 60;
+      if (next !== visible) {
+        visible = next;
+        setIsBackVisible(next);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const goBack = () => {
+    navigate('/#projects');
+  };
 
   if (!project) {
     return (
@@ -38,6 +62,26 @@ export default function ProjectDetail() {
       transition={{ duration: 0.4 }}
       className="min-h-screen"
     >
+      <AnimatePresence>
+        {isBackVisible && (
+          <motion.button
+            onClick={goBack}
+            initial={{ opacity: 0, y: -20, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.8 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="fixed top-5 left-5 md:top-6 md:left-6 z-50 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-[rgba(var(--accent),0.5)] bg-[rgba(var(--bg),0.75)] backdrop-blur-xl text-[rgb(var(--accent))] shadow-lg shadow-[rgba(var(--accent),0.15)] hover:bg-[rgba(var(--accent),0.15)] hover:border-[rgb(var(--accent))] transition-colors"
+            style={{ fontFamily: 'var(--font-mono)' }}
+            aria-label="Back to projects"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </motion.button>
+        )}
+      </AnimatePresence>
+
       <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
         <img
           src={project.thumbnail}
@@ -48,8 +92,8 @@ export default function ProjectDetail() {
         <div className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--bg))] via-[rgba(var(--bg),0.6)] to-transparent" />
 
         <button
-          onClick={() => navigate('/')}
-          className="absolute top-6 left-6 z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm border border-[rgba(var(--fg),0.15)] bg-[rgba(var(--bg),0.6)] backdrop-blur-md text-[rgb(var(--fg-muted))] hover:text-[rgb(var(--fg))] transition-colors"
+          onClick={goBack}
+          className="absolute top-6 left-6 z-10 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-[rgba(var(--accent),0.5)] bg-[rgba(var(--accent),0.12)] backdrop-blur-md text-[rgb(var(--accent))] hover:bg-[rgba(var(--accent),0.2)] hover:border-[rgb(var(--accent))] transition-all duration-300"
           style={{ fontFamily: 'var(--font-mono)' }}
         >
           <ArrowLeft className="w-4 h-4" />
@@ -75,7 +119,7 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      <div ref={contentStartRef} className="max-w-5xl mx-auto px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-10 border-b border-[rgba(var(--fg),0.06)]">
           <div>
             <span className="text-[10px] uppercase tracking-[0.2em]" style={{ fontFamily: 'var(--font-mono)', color: 'rgb(var(--fg-dim))' }}>Role</span>
