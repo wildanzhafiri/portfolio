@@ -63,7 +63,7 @@ export function About() {
         <div ref={imageRef} className="relative">
           <div className="relative overflow-hidden" style={{ clipPath: 'polygon(0 4%, 100% 0, 96% 100%, 4% 96%)' }}>
             <img
-              src={`${BASE}images/profile2.png`}
+              src={`${BASE}images/profile2.webp`}
               alt="Muhammad Wildan Zhafiri — Frontend Developer, IT student at Brawijaya University"
               className="w-full aspect-3/4 sm:-translate-y-20 object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
               loading="lazy"
