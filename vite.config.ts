@@ -5,38 +5,33 @@ import { imagetools } from 'vite-imagetools';
 import viteCompression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 // https://vite.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [
-    react(),
-    tailwindcss(),
-    imagetools({
-      defaultDirectives: (url) => {
-        if (url.searchParams.has('optimize')) {
-          return new URLSearchParams({
-            format: 'webp',
-            quality: '80',
-          });
-        }
-        return new URLSearchParams();
-      },
-    }),
-    viteCompression({
-      algorithm: 'gzip',
-      ext: '.gz',
-    }),
-    viteCompression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-    }),
-    visualizer({
-      filename: './dist/stats.html',
-      open: false,
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
+  plugins: [react(), tailwindcss(), imagetools({
+    defaultDirectives: (url) => {
+      if (url.searchParams.has('optimize')) {
+        return new URLSearchParams({
+          format: 'webp',
+          quality: '80',
+        });
+      }
+      return new URLSearchParams();
+    },
+  }), viteCompression({
+    algorithm: 'gzip',
+    ext: '.gz',
+  }), viteCompression({
+    algorithm: 'brotliCompress',
+    ext: '.br',
+  }), visualizer({
+    filename: './dist/stats.html',
+    open: false,
+    gzipSize: true,
+    brotliSize: true,
+  }), cloudflare()],
   build: {
     rollupOptions: {
       output: {
